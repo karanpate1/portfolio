@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Portfolio</title>
+    <title>Karan Patel | AI Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,24 +15,41 @@
         }
 
         :root {
-            --bg-black: #0a0a0a;
-            --bg-charcoal: #1a1a1a;
-            --bg-gunmetal: #2a2a2a;
+            --bg-black: #050505;
+            --bg-charcoal: #0b0b0e;
             --glow-white: #ffffff;
-            --glow-silver: #c0c0c0;
-            --glass-bg: rgba(26, 26, 26, 0);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glow-silver: #a0a0a0;
+            --accent-cyan: #00f3ff;
+            --glass-bg: rgba(15, 15, 20, 0.6);
+            --glass-border: rgba(0, 243, 255, 0.15);
+            --code-font: 'JetBrains Mono', monospace;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-charcoal) 100%);
+            background-color: var(--bg-black);
             color: var(--glow-silver);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Neural Network Background */
+        /* --- NEW: CYBER GRID BACKGROUND --- */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        /* Neural Network Canvas */
         #neural-canvas {
             position: fixed;
             top: 0;
@@ -40,7 +57,6 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.6;
         }
 
         .content-wrapper {
@@ -48,15 +64,75 @@
             z-index: 1;
         }
 
+        /* Sticky Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--glow-white);
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Blinking cursor for nerd effect */
+        .logo::before {
+            content: '>';
+            color: var(--accent-cyan);
+            animation: blink 1s infinite;
+        }
+
+        .logo span { color: var(--accent-cyan); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--glow-silver);
+            font-size: 0.9rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--code-font); /* Code font for links */
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
         /* Frosted Glass Effect */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
         }
 
         /* Hero Section */
@@ -76,57 +152,65 @@
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
             color: var(--glow-white);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
-                         0 0 40px rgba(255, 255, 255, 0.3);
-            margin-bottom: 1rem;
-            animation: glow-pulse 3s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
         }
 
         .hero .tagline {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--glow-silver);
-            margin-bottom: 3rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-family: var(--code-font);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            background: rgba(0, 243, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        /* NEW: System Badge */
+        .system-badge {
+            font-family: var(--code-font);
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0f0;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #0f0;
         }
 
         .cta-button {
             font-family: 'Orbitron', sans-serif;
             padding: 1rem 3rem;
-            background: rgba(42, 42, 42, 0.6);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--glow-white);
-            border-radius: 50px;
-            color: var(--glow-white);
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
         }
 
         .cta-button:hover {
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.6),
-                        0 0 60px rgba(255, 255, 255, 0.4);
+            background: var(--accent-cyan);
+            color: var(--bg-black);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
             transform: translateY(-2px);
-            background: rgba(42, 42, 42, 0.8);
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
-                             0 0 40px rgba(255, 255, 255, 0.3);
-            }
-            50% {
-                text-shadow: 0 0 30px rgba(255, 255, 255, 0.7),
-                             0 0 60px rgba(255, 255, 255, 0.5);
-            }
         }
 
         /* Section Styling */
         section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -136,8 +220,18 @@
             font-size: clamp(2rem, 5vw, 3rem);
             color: var(--glow-white);
             text-align: center;
-            margin-bottom: 3rem;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-cyan);
+            margin: 10px auto 0;
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         /* About Section */
@@ -146,51 +240,34 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
+            text-align: center;
         }
 
         .avatar-container {
+            width: 180px;
+            height: 180px;
             position: relative;
-            width: 200px;
-            height: 200px;
         }
+
+        /* HUD Circle around Avatar */
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 1px dashed var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .avatar {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--glow-white);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        }
-
-        .avatar-container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            border: 2px solid var(--glow-white);
-            opacity: 0.3;
-            animation: ring-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes ring-pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.3;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.6;
-            }
-        }
-
-        .about-text {
-            text-align: center;
-            line-height: 1.8;
-            color: var(--glow-silver);
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
         }
 
         .skills-container {
@@ -198,331 +275,242 @@
             flex-wrap: wrap;
             gap: 1rem;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
         .skill-chip {
-            padding: 0.7rem 1.5rem;
-            background: var(--bg-black);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: var(--glow-white);
-            font-size: 0.9rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            color: var(--accent-cyan);
+            font-family: var(--code-font); /* Nerd font */
+            font-size: 0.85rem;
             transition: all 0.3s ease;
-            cursor: default;
         }
 
         .skill-chip:hover {
-            border-color: var(--glow-white);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            background: rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
             transform: translateY(-2px);
         }
 
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Tech corner accent */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-top: 40px solid rgba(0, 243, 255, 0.1);
+            border-right: 40px solid transparent;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .project-image {
             width: 100%;
-            height:300px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            opacity: 0.4; /* Lower value = more transparent */
-        }
-
-        /* MODIFIED: Project Card Glassmorphism */
-        .project-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4),
-                        0 10px 40px rgba(0, 0, 0, 0.5);
-            border-color: var(--glow-white);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .project-card h3 {
             font-family: 'Orbitron', sans-serif;
             color: var(--glow-white);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
         }
+
+        .project-card:hover h3 { color: var(--accent-cyan); }
 
         .project-card p {
-            color: var(--glow-silver);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-card h3,
-        .project-card p {
-            text-decoration: none;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            color: var(--glow-white);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--glass-border);
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            color: #ccc;
             font-size: 0.9rem;
-        }
-
-        .project-link:hover {
-            border-color: var(--glow-white);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            line-height: 1.6;
         }
 
         /* Experience Section */
         .timeline {
             position: relative;
             padding: 2rem 0;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
             left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, 
-                var(--glow-white) 0%, 
-                var(--glow-silver) 50%, 
-                var(--glow-white) 100%);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transform: translateX(-50%);
+            top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--accent-cyan), transparent);
         }
 
         .timeline-item {
-            position: relative;
             margin-bottom: 3rem;
             display: flex;
-            justify-content: flex-start;
-            padding-left: calc(50% + 3rem);
+            justify-content: center;
+            width: 100%;
         }
 
-        .timeline-item:nth-child(even) {
-            justify-content: flex-end;
-            padding-left: 0;
-            padding-right: calc(50% + 3rem);
-        }
-
-        /* MODIFIED: Timeline Content Glassmorphism */
         .timeline-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
             border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            max-width: 400px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--accent-cyan); /* Tech border */
+            padding: 2rem;
+            width: 80%;
+            text-align: left;
+            position: relative;
+            z-index: 2;
         }
-
+        
         .timeline-node {
             position: absolute;
             left: 50%;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background: var(--glow-white);
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-black);
+            border: 2px solid var(--accent-cyan);
             border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            z-index: 2;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent-cyan);
+            z-index: 3;
         }
 
         .timeline-content h3 {
             font-family: 'Orbitron', sans-serif;
             color: var(--glow-white);
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
 
         .timeline-content .date {
-            color: var(--glow-silver);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Skills Charts */
-        .skills-charts {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .skill-chart {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .radial-chart {
-            position: relative;
-            width: 150px;
-            height: 150px;
-        }
-
-        .radial-chart svg {
-            transform: rotate(-90deg);
-        }
-
-        .radial-chart circle {
-            fill: none;
-            stroke-width: 10;
-        }
-
-        .radial-chart .bg-circle {
-            stroke: var(--bg-gunmetal);
-        }
-
-        .radial-chart .progress-circle {
-            stroke: var(--glow-white);
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-            transition: stroke-dashoffset 1s ease;
-        }
-
-        .skill-chart-label {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--glow-white);
-            text-align: center;
+            font-family: var(--code-font);
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            margin: 0.5rem 0 1rem 0;
         }
 
         /* Contact Section */
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .social-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--glass-border);
-            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px; /* Square with rounded corners for tech feel */
             color: var(--glow-white);
-            text-decoration: none;
             transition: all 0.3s ease;
-            font-size: 1.5rem;
         }
 
         .social-icon:hover {
-            border-color: var(--glow-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            animation: pulse-glow 1s ease-in-out infinite;
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            transform: translateY(-3px);
         }
 
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            }
-        }
-
-        a {
-             text-decoration: none;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -1px 10px rgba(255, 255, 255, 0.1);
-            color: rgba(192, 192, 192, 0.7);
+            padding: 3rem;
+            background: var(--bg-black);
+            border-top: 1px solid var(--glass-border);
+            color: #555;
+            font-family: var(--code-font);
+            font-size: 0.8rem;
         }
+        
+        @keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0;} }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item,
-            .timeline-item:nth-child(even) {
-                padding-left: 60px;
-                padding-right: 0;
-            }
-
-            .timeline-node {
-                left: 20px;
-            }
-
-            .timeline-content {
-                max-width: 100%;
-            }
-        }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .hero h1 { font-size: 2.8rem; }
+            .timeline::before { left: 10px; }
+            .timeline-node { left: 10px; }
+            .timeline-item { padding-left: 30px; justify-content: flex-start; }
+            .timeline-content { width: 100%; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    
     <canvas id="neural-canvas"></canvas>
     
+    <nav class="navbar">
+        <div class="logo">KARAN <span>PATEL</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Work</a>
+            <a href="#experience">Exp</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
     <div class="content-wrapper">
          <section class="hero" id="home">
+            <!-- <div class="system-badge"><div class="status-dot"></div> SYSTEM: ONLINE</div> -->
             <h1>KARAN PATEL</h1>
-            <p class="tagline">AI ML DEVELOPER</p>
-            <a href="#contact" class="cta-button">GET IN TOUCH</a>
+            <p class="tagline">&lt; AI/ML ENGINEER /&gt;</p>
+            <a href="#contact" class="cta-button">INITIATE &nbsp  CONTACT</a>
         </section>
 
          <section id="about">
             <h2 class="section-title">ABOUT ME</h2>
             <div class="glass-card about-content">
                 <div class="avatar-container">
-                    <img src="images/logo.png" alt="Profile" class="avatar">
+                    <img src="images/logo.png" onerror="this.src='https://via.placeholder.com/200/00f3ff/000000?text=KP'" alt="Profile" class="avatar">
                 </div>
                 <div class="about-text">
-                    <p>I'm a passionate developer with expertise in creating elegant solutions to complex problems. With a focus on modern web technologies and user experience, I bring ideas to life through clean code and innovative design.</p>
+                    <p>I engineer intelligence. Specializing in Deep Learning architectures and Computer Vision pipelines, I transform raw data into decision-making systems.</p>
                 </div>
                 <div class="skills-container">
-                    <span class="skill-chip">AI</span>
-                    <span class="skill-chip">MACHINE LEARNING</span>
-                    <span class="skill-chip">DEEP LEARNING</span>
-                    <span class="skill-chip">PYTHON</span>
-                    <span class="skill-chip">PYTORCH</span>
-                    <span class="skill-chip">YOLO</span>
-                    <span class="skill-chip">OPENCV</span>
-                    <span class="skill-chip">LLM</span>
-                    <span class="skill-chip">NLP</span>
-                    <span class="skill-chip">CHAT-BOT</span>
+                    <span class="skill-chip">python</span>
+                    <span class="skill-chip">pytorch</span>
+                    <span class="skill-chip">tensorflow</span>
+                    <span class="skill-chip">yolov8</span>
+                    <span class="skill-chip">opencv</span>
+                    <span class="skill-chip">transformers</span>
+                    <span class="skill-chip">nlp</span>
+                    <span class="skill-chip">LLMs</span>
                 </div>
             </div>
         </section>
@@ -530,294 +518,230 @@
          <section id="projects">
             <h2 class="section-title">PROJECTS</h2>
             <div class="projects-grid">
-                 <!-- 5 -->
-                <a href="#" class="project-card" >
-                    <h3>SMART TRAFFIC CONTROL SYSTEM</h3>
-                    <img src="images/pr5.png" alt="CRICKET EXPERT" class="project-image">
-                    <p>Smart Traffic Camera System: real-time detection of wrong-way driving, red-light violations, and heavy-vehicle intrusions using YOLO + DeepSORT and OpenCV; automatically captures evidence, extracts license plates, and logs time, location, image and plate to CSV/portal.</p>
+                <a href="https://github.com/karanpate1/Smart-Traffic-Control-System" class="project-card" target="_blank">
+                    <img src="images/pr5.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>SMART TRAFFIC CONTROL</h3>
+                    <p>Automated surveillance grid using YOLO + DeepSORT. Detects wrong-way driving and violations in real-time.</p>
                 </a>
-                <!-- 6 -->
-                <a href="#" class="project-card" >
-                    <h3>AI-POWERED MONITORING FOR ELECTION</h3>
-                    <img src="images/pr6.png" alt="CRICKET EXPERT" class="project-image">
-                    <p>Developed an AI-powered monitoring solution to detect overcrowding in rooms, closed-door conditions, and multiple persons near EVM booths using a YOLO + DeepSORT-based pipeline. The system automatically captures alert images and logs them to a centralized portal in real time. Deployed via Vast.ai on 1000+ live camera streams during the West Bengal elections for automated security oversight.</p>
+                <a href="#" class="project-card">
+                    <img src="images/pr6.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>ELECTION MONITOR</h3>
+                    <p>Mass-scale crowd analysis deployed on 1000+ streams. Real-time anomaly detection for secure polling.</p>
                 </a>
-                <!-- 1 -->
-                <a href="https://github.com/karanpate1/Cricket-Guru-RAG-Powered-Chatbot-.git" class="project-card" >
-                    <h3>CRICKET EXPERT (RAG)</h3>
-                    <img src="images/pr1.png" alt="CRICKET EXPERT" class="project-image">
-
-                    <p> Cricket EXPERT is an AI-powered chatbot that can answer cricket-related questions using ball-by-ball commentary and scorecards. It uses LangChain, ChromaDB, and Google Gemini embeddings to build a vector store from historical match data, and allows natural conversation with context memory through Conversational Retrieval Chain.</p>
-
-                    <!-- <div class="project-links">
-                        <a href="#" class="project-link">View Demo</a>
-                        <a href="https://github.com/karanpate1/Cricket-Guru-RAG-Powered-Chatbot-.git" class="project-link">GitHub</a>
-                    </div> -->
+                <a href="https://github.com/karanpate1/Cricket-Guru-RAG-Powered-Chatbot-.git" class="project-card" target="_blank">
+                    <img src="images/pr1.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>CRICKET RAG BOT</h3>
+                    <p>Context-aware LLM using LangChain & ChromaDB. Queries historical match data for precise analytics.</p>
                 </a>
-                <!-- 2 -->
-                <a href="https://github.com/karanpate1/Noob_chatbot-.git" class="project-card" >
-                    <h3>Mobile Store AI Assistant</h3>
-                    <img src="images/pr2.png" alt="CRICKET EXPERT" class="project-image">
-                    <p>This project is a conversational AI chatbot built to act as a sales assistant for a fictional mobile phone store.A key feature of this project is its use of function calling with the Google Gemini API. This allows the chatbot to dynamically fetch price information by calling a predefined Python function, making the conversation more interactive and useful.</p>
+                <a href="https://github.com/karanpate1/Noob_chatbot-.git" class="project-card" target="_blank">
+                    <img src="images/pr2.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>MOBILE ASSISTANT AI</h3>
+                    <p>Conversational agent utilizing Function Calling with Gemini API to fetch real-time pricing data.</p>
                 </a>
-                <!-- 3 -->
-                <a href="https://github.com/karanpate1/video_captioning.git" class="project-card" >
-                    <h3>Video captioning</h3>
-                    <img src="images/pr3.png" alt="CRICKET EXPERT" class="project-image">
-                    <p>Built a deep learning model that generates one-sentence descriptions for video clips. Trained on the MSR-VTT dataset using a CNN-LSTM architecture combining visual feature extraction with temporal sequence modeling. Implemented using Python, PyTorch, and OpenCV to enable automated video understanding.</p>
+                <a href="https://github.com/karanpate1/video_captioning.git" class="project-card" target="_blank">
+                    <img src="images/pr3.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>VIDEO CAPTIONING</h3>
+                    <p>CNN-LSTM architecture trained on MSR-VTT to generate natural language descriptions of video content.</p>
                 </a>
-                <!-- 4 -->
-                <a href="#" class="project-card" >
-                    <h3>DEEPFAKE DETECTION</h3>
-                    <img src="images/pr4.png" alt="DEEPFAKE DETECTION" class="project-image">
-                <ul>
-                <li><p>Video Deepfake Detection: Implemented Deep Convolutional Pooling Transformer for Deepfake Detection to distinguish AI-generated vs. real videos using transformer + neural network architectures on Face Forensic++ video datasets.</p></li>
-                <li><p>Image Manipulation Detection: Built a CNN-based model inspired by Shallow-FakeFaceNet to detect facial edits (glasses replacement, nose/eye/hair modifications) on a custom handcrafted dataset of raw vs. manipulated images.</li></p>
-                </ul>    
+                <a href="#" class="project-card">
+                    <img src="images/pr4.png" onerror="this.style.display='none'" class="project-image">
+                    <h3>DEEPFAKE DETECTOR</h3>
+                    <p>Transformer + Neural Network architecture detecting manipulation in Face Forensic++ datasets.</p>
                 </a>
-               
-                
             </div>
         </section>
 
          <section id="experience">
-            <h2 class="section-title">EXPERIENCE</h2>
+            <h2 class="section-title">LOGS</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-node"></div>
                     <div class="timeline-content">
-                        <h3>AI/ML Developer (VMUKTI SOLUTIONS)</h3>
-                        <p class="date">MAY 2025 - NOVEMBER 2025</p>
-                        <p>AI/ML Engineer specializing in Computer Vision, NLP, and LLMs — building real-time, scalable, and production-ready AI systems.</p>
+                        <h3>AI/ML Developer</h3>
+                        <p class="date">VMUKTI SOLUTIONS | MAY 2025 - NOV 2025</p>
+                        <p>Architected a real-time surveillance system deployed on 1,000+ cameras using YOLO and Vast.ai. Engineered multi-agent chatbots with Google ADK and automated complex video workflows using PaddleOCR and custom Deep Learning models.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-         <!-- <section id="skills">
-            <h2 class="section-title">TECHNICAL SKILLS</h2>
-            <div class="skills-charts">
-                <div class="skill-chart">
-                    <div class="radial-chart">
-                        <svg width="150" height="150">
-                            <circle class="bg-circle" cx="75" cy="75" r="60"></circle>
-                            <circle class="progress-circle" cx="75" cy="75" r="60" 
-                                    stroke-dasharray="377" stroke-dashoffset="75.4" data-progress="90"></circle>
-                        </svg>
-                    </div>
-                    <span class="skill-chart-label">Frontend<br>90%</span>
-                </div>
-                <div class="skill-chart">
-                    <div class="radial-chart">
-                        <svg width="150" height="150">
-                            <circle class="bg-circle" cx="75" cy="75" r="60"></circle>
-                            <circle class="progress-circle" cx="75" cy="75" r="60" 
-                                    stroke-dasharray="377" stroke-dashoffset="113.1" data-progress="85"></circle>
-                        </svg>
-                    </div>
-                    <span class="skill-chart-label">Backend<br>85%</span>
-                </div>
-                <div class="skill-chart">
-                    <div class="radial-chart">
-                        <svg width="150" height="150">
-                            <circle class="bg-circle" cx="75" cy="75" r="60"></circle>
-                            <circle class="progress-circle" cx="75" cy="75" r="60" 
-                                    stroke-dasharray="377" stroke-dashoffset="150.8" data-progress="80"></circle>
-                        </svg>
-                    </div>
-                    <span class="skill-chart-label">DevOps<br>80%</span>
-                </div>
-                <div class="skill-chart">
-                    <div class="radial-chart">
-                        <svg width="150" height="150">
-                            <circle class="bg-circle" cx="75" cy="75" r="60"></circle>
-                            <circle class="progress-circle" cx="75" cy="75" r="60" 
-                                    stroke-dasharray="377" stroke-dashoffset="94.25" data-progress="88"></circle>
-                        </svg>
-                    </div>
-                    <span class="skill-chart-label">UI/UX<br>88%</span>
-                </div>
-            </div>
-        </section> -->
 
          <section id="contact">
-            <h2 class="section-title">GET IN TOUCH</h2>
+            <h2 class="section-title">ESTABLISH LINK</h2>
             <div class="glass-card contact-content">
-                <p style="text-align: center; line-height: 1.8;">
-                    I'm always interested in hearing about new projects and opportunities. 
-                    Whether you have a question or just want to say hi, feel free to reach out!
-                </p>
+                <p>Uplink available for collaboration. Signal strength: Strong.</p>
                 <div class="social-icons">
-                    <a href="https://github.com/karanpate1" class="social-icon" title="GitHub">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/karan-patel-aiml" class="social-icon" title="LinkedIn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="https://mail.google.com/mail/?view=cm&to=karanpatel.ai2003@gmail.com" target="_blank"  class="social-icon" title="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
-                        </svg>
-                    </a>
+                    <a href="https://github.com/karanpate1" class="social-icon" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+                    <a href="https://linkedin.com/in/karan-patel-aiml" class="social-icon" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                    <a href="mailto:karanpatel.ai2003@gmail.com" class="social-icon" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a>
                 </div>
             </div>
         </section>
 
-         </div>
+        <footer>
+            <p>SYSTEM ID: KP-2025 // AKA : ZAPTORIOUS</p>
+        </footer>
+    </div>
 
     <script>
-        // Neural Network Canvas Animation
         const canvas = document.getElementById('neural-canvas');
         const ctx = canvas.getContext('2d');
         
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let width, height;
+        
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
+        // 1. NEURAL PARTICLES
         let particles = [];
-        let connections = [];
-        let mouseX = 0;
-        let mouseY = 0;
+        const particleCount = 80;
+        const connectionDistance = 140;
+        const mouseDistance = 200;
+        let mouse = { x: null, y: null };
 
+        // 2. FLOATING SYMBOLS (The "Nerd" Element)
+        let symbols = [];
+        const symbolCount = 20;
+        const symbolChars = ['0', '1', 'def', 'import', '{ }', '[]', '+', 'Σ', 'λ', 'pytorch', 'cv2','LLms','NLP','neurons'];
+
+        class Symbol {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.text = symbolChars[Math.floor(Math.random() * symbolChars.length)];
+                this.speed = (Math.random() * 0.5) + 0.1;
+                this.opacity = (Math.random() * 0.3) + 0.05; // Faint
+                this.size = Math.floor(Math.random() * 10) + 12;
+            }
+
+            update() {
+                this.y -= this.speed; // Float up
+                if (this.y < -20) {
+                    this.y = height + 20;
+                    this.x = Math.random() * width;
+                    this.text = symbolChars[Math.floor(Math.random() * symbolChars.length)];
+                }
+            }
+
+            draw() {
+                ctx.font = `${this.size}px 'JetBrains Mono', monospace`;
+                ctx.fillStyle = `rgba(0, 243, 255, ${this.opacity})`;
+                ctx.fillText(this.text, this.x, this.y);
+            }
+        }
+
+        // Initialize Symbols
+        for(let i=0; i<symbolCount; i++) symbols.push(new Symbol());
+
+        // Initialize Particles
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
+                this.size = Math.random() * 2 + 1;
+                this.activeColor = 'rgba(0, 243, 255, 1)';
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
 
-                // Parallax effect
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
-                    this.x -= dx * 0.001;
-                    this.y -= dy * 0.001;
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
+                    if (distance < mouseDistance) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const force = (mouseDistance - distance) / mouseDistance;
+                        this.vx += forceDirectionX * force * 0.05;
+                        this.vy += forceDirectionY * force * 0.05;
+                    }
                 }
-
-                // Bounce off edges
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
 
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.fill();
-                ctx.shadowBlur = 0;
             }
         }
 
-        // Initialize particles
-        for (let i = 0; i < 100; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
-        function drawConnections() {
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw Floating Symbols (Background Layer)
+            symbols.forEach(s => {
+                s.update();
+                s.draw();
+            });
+
+            // Draw Neurons (Foreground Layer)
+            particles.forEach(p => p.update());
+            particles.forEach(p => p.draw());
+
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
 
-                    if (distance < 150) {
+                    if (distance < connectionDistance) {
+                        let opacity = 1 - (distance / connectionDistance);
+                        ctx.lineWidth = 1;
+                        let isNearMouse = false;
+                        if(mouse.x != null) {
+                            let d1 = Math.sqrt((particles[i].x - mouse.x)**2 + (particles[i].y - mouse.y)**2);
+                            let d2 = Math.sqrt((particles[j].x - mouse.x)**2 + (particles[j].y - mouse.y)**2);
+                            if(d1 < mouseDistance || d2 < mouseDistance) isNearMouse = true;
+                        }
+
+                        if (isNearMouse) {
+                            ctx.strokeStyle = `rgba(0, 243, 255, ${opacity})`;
+                        } else {
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
+                        }
+                        
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(192, 192, 192, ${1 - distance / 150})`;
-                        ctx.lineWidth = 0.5;
                         ctx.stroke();
-
-                        // Draw signal sparks
-                        if (Math.random() > 0.98) {
-                            const sparkX = particles[i].x + (particles[j].x - particles[i].x) * Math.random();
-                            const sparkY = particles[i].y + (particles[j].y - particles[i].y) * Math.random();
-                            ctx.beginPath();
-                            ctx.arc(sparkX, sparkY, 2, 0, Math.PI * 2);
-                            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                            ctx.shadowBlur = 5;
-                            ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
-                            ctx.fill();
-                            ctx.shadowBlur = 0;
-                        }
                     }
                 }
             }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            drawConnections();
             requestAnimationFrame(animate);
         }
 
         animate();
 
-        // Mouse tracking for parallax
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Resize canvas
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Animate skill charts on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const circles = entry.target.querySelectorAll('.progress-circle');
-                    circles.forEach(circle => {
-                        const progress = circle.getAttribute('data-progress');
-                        const circumference = 2 * Math.PI * 60;
-                        const offset = circumference - (progress / 100) * circumference;
-                        circle.style.strokeDashoffset = offset;
-                    });
-                }
-            });
-        }, observerOptions);
-
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-
-        // Smooth scroll for navigation
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
